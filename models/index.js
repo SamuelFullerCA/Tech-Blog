@@ -20,4 +20,4 @@ User.belongsTo(Comment, {
 })
 
 //exports the newly joined models
-module.export = {User, Post, Comment};
+module.exports = {User, Post, Comment};

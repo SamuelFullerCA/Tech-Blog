@@ -1,12 +1,15 @@
-//imports seqialize for the model
+// imports seqialize for the model
 const { Model, DataTypes } = require('sequelize');
-//users the connection.js in Config to connect to postgres
+// uses the connection.js in Config to connect to postgres
 const sequelize = require('../config/connection');
 
-//creates the class Comment as an extemtion of a sequalize model
+// imports encryption for passwords
+const bcrypt = require('bcrypt');
+
+// creates the class Comment as an extemtion of a sequalize model
 class User extends Model {}
 
-//the model for a user
+// the model for a user
 User.init(
   {
     id: {
@@ -31,10 +34,22 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [6],
+        len: [8],
       },
     },
   },
+  // {
+  //   hooks: {
+  //     async beforeCreate(newData) {
+  //       newData.password = await bcrypt.hash(newData.password, 10);
+  //         return newData;
+  //     },
+  //     async beforeUpdate(updatedData) {
+  //       updatedData.password = await bcrypt.hash(updatedData.password, 10);
+  //         return updatedData;
+  //     }
+  //   },
+  // },
   {
     sequelize,
     timestamps: false,
@@ -44,5 +59,5 @@ User.init(
   }
 );
 
-//exports the model
+// exports the model
 module.exports = User;
